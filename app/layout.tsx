@@ -4,20 +4,22 @@ import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
   variable: "--font-body",
   display: "swap",
 });
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
+  weight: ["500", "600", "700"],
   variable: "--font-display",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Aspire College",
+  title: "AI Skills That Pay — Aspire Institute of Technology",
   description:
-    "A seven-course Digital Skill Certification from the Aspire Institute of Technology. Built for the AI era.",
+    "A seven-course Digital Skill Certification from Aspire College. Learn AI, design, marketing and freelancing. Earn in dollars before you graduate.",
 };
 
 export default function RootLayout({
