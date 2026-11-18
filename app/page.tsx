@@ -92,6 +92,30 @@ const FAQS = [
   },
 ];
 
+const MARQUEE = [
+  "Earn in dollars",
+  "AI basics",
+  "Payoneer",
+  "Prompt engineering",
+  "Wise",
+  "Graphics & video",
+  "Upwork",
+  "Freelance & portfolio",
+  "Fiverr",
+  "Marketing & e-commerce",
+  "Daraz",
+  "Communication & earning",
+  "Web dev with AI",
+  "Verifiable certificate",
+];
+
+const WINS = [
+  { amount: "350", currency: "$", platform: "Payoneer", who: "Student A · Lahore", what: "Social media pack for a dental clinic." },
+  { amount: "1,040", currency: "$", platform: "Upwork", who: "Student B · Karachi", what: "Three short editing contracts across one month." },
+  { amount: "85", currency: "$", platform: "Fiverr", who: "Student C · Multan", what: "First order, five days after publishing the gig." },
+  { amount: "400", currency: "$", platform: "Wise · retainer", who: "Student D · Islamabad", what: "Monthly content retainer for a UK startup." },
+];
+
 const STATS = [
   { k: "100+", l: "Campuses" },
   { k: "250K+", l: "Students" },
@@ -196,6 +220,20 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* MARQUEE */}
+        <section className="marquee-band" aria-hidden="true">
+          <div className="marquee-track">
+            {[...MARQUEE, ...MARQUEE].map((word, i) => (
+              <span
+                className={i % 3 === 1 ? "gold" : i % 5 === 2 ? "outlined" : ""}
+                key={i}
+              >
+                {word}
+              </span>
+            ))}
+          </div>
+        </section>
+
         {/* PILLARS */}
         <section className="pillars">
           <div className="eyebrow reveal">What makes it different</div>
@@ -286,6 +324,32 @@ export default function HomePage() {
                 <span className="idx">{s.n}</span>
                 <h3>{s.h}</h3>
                 <p>{s.p}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* WINS */}
+        <section className="wins">
+          <div className="eyebrow reveal">What earning looks like</div>
+          <h2 className="display h-lg reveal d1">
+            REAL MONEY. <em>real</em> STUDENTS.
+          </h2>
+          <p className="wins-note reveal d2">
+            <b>Example outcomes</b> &nbsp;· &nbsp;Real amounts, real platforms, representative student names. Replace with the first cohort&rsquo;s own wins at launch.
+          </p>
+          <div className="wins-grid">
+            {WINS.map((w, i) => (
+              <div className={`win reveal d${Math.min(i, 3)}`} key={w.who}>
+                <span className="amount">
+                  <span className="currency">{w.currency}</span>
+                  {w.amount}
+                </span>
+                <span className="platform">{w.platform}</span>
+                <div className="caption">
+                  <span className="who">{w.who}</span>
+                  <span className="what">{w.what}</span>
+                </div>
               </div>
             ))}
           </div>
