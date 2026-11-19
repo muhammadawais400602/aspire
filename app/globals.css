@@ -107,6 +107,46 @@
   stroke-dashoffset: 0;
 }
 
+/* ───── Explainer video scenes ───── */
+@keyframes scene-fade-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.scene-fade-up {
+  opacity: 0;
+  animation: scene-fade-up 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.scene-delay-1 { animation-delay: 0.25s; }
+.scene-delay-2 { animation-delay: 0.55s; }
+.scene-delay-3 { animation-delay: 0.85s; }
+.scene-delay-4 { animation-delay: 1.15s; }
+.scene-delay-5 { animation-delay: 1.45s; }
+.scene-delay-6 { animation-delay: 1.75s; }
+.scene-delay-7 { animation-delay: 2.05s; }
+.scene-delay-8 { animation-delay: 2.35s; }
+
+@keyframes scene-cta-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(118, 0, 9, 0.5);
+  }
+  50% {
+    transform: scale(1.03);
+    box-shadow: 0 0 0 18px rgba(118, 0, 9, 0);
+  }
+}
+.scene-cta-pulse {
+  animation: scene-cta-pulse 2s ease-in-out infinite;
+}
+
+@keyframes scene-count-tick {
+  from { opacity: 0.4; }
+  to { opacity: 1; }
+}
+.scene-count-tick {
+  animation: scene-count-tick 1.2s ease-in forwards;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal {
     opacity: 1;
@@ -117,9 +157,16 @@
   .term-line,
   .cursor-blink,
   .node-pulse,
-  .ring-pulse {
+  .ring-pulse,
+  .scene-cta-pulse,
+  .scene-count-tick {
     animation: none !important;
     opacity: 1 !important;
+  }
+  .scene-fade-up {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
   .trajectory-path {
     stroke-dashoffset: 0 !important;
