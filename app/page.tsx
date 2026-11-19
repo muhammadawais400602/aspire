@@ -1,7 +1,7 @@
 "use client";
 
-const HERO_IMG =
-  "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1600&q=80";
+import { useEffect, useRef, useState } from "react";
+
 const COLLAB_IMG =
   "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80";
 const CHAIRMAN_IMG =
@@ -15,6 +15,198 @@ function MIcon({ name, className = "" }: { name: string; className?: string }) {
     >
       {name}
     </span>
+  );
+}
+
+function StatCounter({
+  target,
+  suffix = "",
+  duration = 1500,
+}: {
+  target: number;
+  suffix?: string;
+  duration?: number;
+}) {
+  const [val, setVal] = useState(0);
+  const ref = useRef<HTMLSpanElement | null>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) {
+      setVal(target);
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          const start = performance.now();
+          const tick = (t: number) => {
+            const p = Math.min(1, (t - start) / duration);
+            const eased = 1 - Math.pow(1 - p, 3);
+            setVal(Math.round(target * eased));
+            if (p < 1) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.4 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [target, duration]);
+
+  return (
+    <span ref={ref}>
+      {val.toLocaleString()}
+      {suffix}
+    </span>
+  );
+}
+
+function HeroAnimation() {
+  const courses = ["AI", "PRMPT", "GFX", "FREE", "MKT", "COM", "WEB"];
+  const nodes = courses.map((label, i) => {
+    const angle = (i / 7) * Math.PI * 2 - Math.PI / 2;
+    return {
+      x: 100 + 72 * Math.cos(angle),
+      y: 100 + 72 * Math.sin(angle),
+      label,
+    };
+  });
+
+  return (
+    <div className="absolute inset-0 bg-[#0B0D10] overflow-hidden">
+      <svg
+        className="absolute inset-0 w-full h-full opacity-[0.12] pointer-events-none"
+        preserveAspectRatio="none"
+        viewBox="0 0 200 112"
+      >
+        <defs>
+          <pattern id="hero-grid" width="8" height="8" patternUnits="userSpaceOnUse">
+            <path d="M 8 0 L 0 0 0 8" fill="none" stroke="#C9A74B" strokeWidth="0.15" />
+          </pattern>
+        </defs>
+        <rect width="200" height="112" fill="url(#hero-grid)" />
+      </svg>
+
+      <div className="relative h-full p-3 sm:p-4 flex gap-3 sm:gap-4">
+        {/* Terminal pane */}
+        <div className="flex-1 min-w-0 bg-black/50 border border-white/10 rounded-lg flex flex-col overflow-hidden">
+          <div className="flex items-center gap-1.5 px-3 py-2 border-b border-white/10 shrink-0">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
+            <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
+            <span className="w-2.5 h-2.5 rounded-full bg-[#27c93f]" />
+            <span className="ml-3 text-white/40 font-mono text-[10px] sm:text-xs truncate">
+              aspire · lab terminal
+            </span>
+          </div>
+          <div className="flex-1 p-3 sm:p-4 font-mono text-[11px] sm:text-[13px] leading-relaxed space-y-1.5 overflow-hidden">
+            <div className="term-line" style={{ animationDelay: "0.2s" }}>
+              <span className="text-white/40">$</span>{" "}
+              <span className="text-[#A9F2A9]">aspire login --campus lahore</span>
+            </div>
+            <div className="term-line" style={{ animationDelay: "1.0s" }}>
+              <span className="text-[#C9A74B]">✓</span>{" "}
+              <span className="text-white/70">authenticated · student_A</span>
+            </div>
+            <div className="term-line" style={{ animationDelay: "1.9s" }}>
+              <span className="text-white/40">$</span>{" "}
+              <span className="text-[#A9F2A9]">run capstone --task portfolio</span>
+            </div>
+            <div className="term-line" style={{ animationDelay: "2.8s" }}>
+              <span className="text-white/50">› compiling sections ·</span>{" "}
+              <span className="text-[#C9A74B]">07 / 07</span>
+            </div>
+            <div className="term-line" style={{ animationDelay: "3.7s" }}>
+              <span className="text-[#C9A74B]">✓</span>{" "}
+              <span className="text-white/70">deployed · ait.edu.pk/s/8f3a</span>
+            </div>
+            <div className="term-line" style={{ animationDelay: "4.6s" }}>
+              <span className="text-white/40">$</span>{" "}
+              <span className="cursor-blink text-white">▍</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Node graph pane */}
+        <div className="hidden sm:flex w-[38%] shrink-0 bg-black/50 border border-white/10 rounded-lg flex-col overflow-hidden">
+          <div className="px-3 py-2 border-b border-white/10 flex items-center justify-between shrink-0">
+            <span className="text-white/40 font-mono text-[10px]">CURRICULAR NODES</span>
+            <span className="text-[#C9A74B] font-mono text-[10px]">07</span>
+          </div>
+          <div className="flex-1 flex items-center justify-center p-3">
+            <svg viewBox="0 0 200 200" className="w-full h-full max-w-[260px]">
+              {nodes.map((n, i) => (
+                <line
+                  key={`l-${i}`}
+                  x1="100"
+                  y1="100"
+                  x2={n.x}
+                  y2={n.y}
+                  stroke="#C9A74B"
+                  strokeOpacity="0.28"
+                  strokeWidth="0.6"
+                />
+              ))}
+              {nodes.map((n, i) => (
+                <g key={`n-${i}`}>
+                  <circle
+                    cx={n.x}
+                    cy={n.y}
+                    r="5"
+                    fill="#C8102E"
+                    className="node-pulse"
+                    style={{ animationDelay: `${i * 0.35}s` }}
+                  />
+                  <text
+                    x={n.x}
+                    y={n.y - 10}
+                    textAnchor="middle"
+                    fill="rgba(255,255,255,0.65)"
+                    fontSize="6"
+                    fontFamily="monospace"
+                  >
+                    {n.label}
+                  </text>
+                </g>
+              ))}
+              <circle
+                cx="100"
+                cy="100"
+                r="16"
+                fill="rgba(0,0,0,0.5)"
+                stroke="#C9A74B"
+                strokeWidth="0.8"
+                opacity="0.85"
+              />
+              <circle
+                cx="100"
+                cy="100"
+                r="16"
+                fill="none"
+                stroke="#C9A74B"
+                strokeWidth="0.6"
+                className="ring-pulse"
+              />
+              <text
+                x="100"
+                y="104"
+                textAnchor="middle"
+                fill="#C9A74B"
+                fontSize="9"
+                fontFamily="sans-serif"
+                fontWeight="bold"
+              >
+                AIT
+              </text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -88,6 +280,30 @@ const FAQS = [
 ];
 
 export default function HomePage() {
+  useEffect(() => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const items = document.querySelectorAll<HTMLElement>(".reveal");
+
+    if (reduced || !("IntersectionObserver" in window)) {
+      items.forEach((el) => el.classList.add("in"));
+      return;
+    }
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("in");
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -6% 0px" }
+    );
+    items.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+
   return (
     <>
       {/* HEADER */}
@@ -125,7 +341,7 @@ export default function HomePage() {
         <div className="flex flex-col w-full">
           {/* SECTION 1: HERO */}
           <section className="relative w-full py-20 lg:py-28 px-gutter overflow-hidden bg-surface">
-            <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[360px] bg-primary/5 rounded-full blur-3xl pointer-events-none -z-10" />
+            <div className="hero-glow-animate absolute top-1/4 left-1/2 w-[700px] h-[360px] bg-primary/5 rounded-full blur-3xl pointer-events-none -z-10" />
             <div className="max-w-7xl mx-auto flex flex-col items-center text-center">
               <div className="inline-flex items-center gap-space-xs px-space-md py-1.5 rounded-full bg-primary-fixed/50 text-on-primary-fixed-variant font-label-md text-label-md mb-space-lg shadow-sm">
                 <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
@@ -177,8 +393,8 @@ export default function HomePage() {
               {/* Hero visual card */}
               <div className="relative w-full max-w-5xl rounded-2xl overflow-hidden shadow-2xl bg-surface-container-lowest p-2 sm:p-3 mb-16">
                 <div className="relative aspect-[16/9] w-full rounded-xl overflow-hidden">
-                  <img alt="Aspire IT innovation lab" className="w-full h-full object-cover" src={HERO_IMG} />
-                  <div className="absolute inset-0 bg-gradient-to-t from-on-surface/80 via-transparent to-transparent" />
+                  <HeroAnimation />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
                   <div className="absolute top-4 left-4 flex flex-wrap gap-2">
                     <span className="px-3 py-1 bg-surface-container-lowest/90 backdrop-blur-md rounded-full font-label-sm text-label-sm text-primary font-bold shadow-sm flex items-center gap-1.5">
                       <span className="w-2 h-2 rounded-full bg-primary animate-ping" /> Live Session Telemetry
@@ -271,7 +487,7 @@ export default function HomePage() {
 
           {/* SECTION 3: THREE PILLARS */}
           <section className="py-24 px-gutter max-w-7xl mx-auto w-full">
-            <div className="text-center max-w-3xl mx-auto mb-16">
+            <div className="reveal text-center max-w-3xl mx-auto mb-16">
               <span className="font-label-sm text-label-sm uppercase tracking-wider text-primary font-bold">
                 What makes it different
               </span>
@@ -377,7 +593,7 @@ export default function HomePage() {
           {/* SECTION 4: PAIN */}
           <section className="py-24 px-gutter bg-surface-container-low w-full">
             <div className="max-w-7xl mx-auto">
-              <div className="text-center max-w-3xl mx-auto mb-16">
+              <div className="reveal text-center max-w-3xl mx-auto mb-16">
                 <span className="font-label-sm text-label-sm uppercase tracking-wider text-primary font-bold">
                   Sound familiar?
                 </span>
@@ -402,7 +618,7 @@ export default function HomePage() {
 
           {/* SECTION 5: TWO PATHS */}
           <section className="py-24 px-gutter max-w-7xl mx-auto w-full">
-            <div className="text-center max-w-3xl mx-auto mb-16">
+            <div className="reveal text-center max-w-3xl mx-auto mb-16">
               <span className="font-label-sm text-label-sm uppercase tracking-wider text-primary font-bold">
                 Two paths
               </span>
@@ -497,13 +713,13 @@ export default function HomePage() {
                   </span>
                 </div>
               </div>
-              <div className="w-full h-44 relative">
+              <div className="reveal w-full h-44 relative">
                 <svg className="w-full h-full stroke-current" fill="none" viewBox="0 0 800 160">
                   <line stroke="#f1f1f0" strokeWidth="1" x1="50" x2="750" y1="20" y2="20" />
                   <line stroke="#f1f1f0" strokeWidth="1" x1="50" x2="750" y1="70" y2="70" />
                   <line stroke="#f1f1f0" strokeWidth="1" x1="50" x2="750" y1="120" y2="120" />
                   <path d="M 50 140 Q 300 140, 500 135 T 750 110" stroke="#8d706d" strokeDasharray="4 4" strokeWidth="2.5" />
-                  <path d="M 50 140 C 200 135, 300 80, 500 50 S 680 25, 750 15" stroke="#760009" strokeWidth="3.5" />
+                  <path className="trajectory-path" d="M 50 140 C 200 135, 300 80, 500 50 S 680 25, 750 15" stroke="#760009" strokeWidth="3.5" />
                   <circle cx="50" cy="140" fill="#760009" r="4" />
                   <circle cx="350" cy="90" fill="#760009" r="5" />
                   <circle cx="750" cy="15" fill="#760009" r="6" />
@@ -522,7 +738,7 @@ export default function HomePage() {
           {/* SECTION 6: WINS */}
           <section className="py-24 px-gutter bg-surface-container-low w-full">
             <div className="max-w-7xl mx-auto">
-              <div className="text-center max-w-3xl mx-auto mb-16">
+              <div className="reveal text-center max-w-3xl mx-auto mb-16">
                 <span className="font-label-sm text-label-sm uppercase tracking-wider text-primary font-bold">
                   What earning looks like
                 </span>
@@ -570,7 +786,7 @@ export default function HomePage() {
 
           {/* SECTION 7: CURRICULUM */}
           <section className="py-24 px-gutter max-w-7xl mx-auto w-full" id="curriculum">
-            <div className="text-center max-w-3xl mx-auto mb-16">
+            <div className="reveal text-center max-w-3xl mx-auto mb-16">
               <span className="font-label-sm text-label-sm uppercase tracking-wider text-primary font-bold">
                 The curriculum
               </span>
@@ -609,10 +825,10 @@ export default function HomePage() {
 
             {/* Course list */}
             <div className="space-y-4">
-              {COURSES.map((c) => (
+              {COURSES.map((c, i) => (
                 <div
                   key={c.n}
-                  className="bg-surface-container-lowest rounded-xl p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-sm hover:shadow-md transition-shadow"
+                  className={`reveal reveal-d${Math.min(i, 6)} bg-surface-container-lowest rounded-xl p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-sm hover:shadow-md transition-shadow`}
                 >
                   <div className="flex items-start gap-5">
                     <span className="w-10 h-10 rounded-full bg-primary-fixed text-primary flex items-center justify-center font-bold text-base shrink-0">
@@ -644,7 +860,7 @@ export default function HomePage() {
           {/* SECTION 8: HOW IT WORKS */}
           <section className="py-24 px-gutter bg-surface-container-low w-full">
             <div className="max-w-7xl mx-auto">
-              <div className="text-center max-w-3xl mx-auto mb-16">
+              <div className="reveal text-center max-w-3xl mx-auto mb-16">
                 <span className="font-label-sm text-label-sm uppercase tracking-wider text-primary font-bold">
                   The path in
                 </span>
@@ -719,14 +935,17 @@ export default function HomePage() {
               </div>
               <div className="w-full lg:w-auto grid grid-cols-2 gap-4 shrink-0">
                 {[
-                  { k: "100+", l: "Campuses" },
-                  { k: "250K+", l: "Students" },
-                  { k: "10 yrs", l: "In operation" },
-                  { k: "1", l: "Verifiable Certificate" },
-                ].map((s) => (
-                  <div key={s.l} className="bg-surface-container-lowest p-6 rounded-2xl shadow-sm text-center">
+                  { num: 100, suffix: "+", l: "Campuses" },
+                  { num: 250, suffix: "K+", l: "Students" },
+                  { num: 10, suffix: " yrs", l: "In operation" },
+                  { num: 1, suffix: "", l: "Verifiable Certificate" },
+                ].map((s, i) => (
+                  <div
+                    key={s.l}
+                    className={`reveal reveal-d${i} bg-surface-container-lowest p-6 rounded-2xl shadow-sm text-center`}
+                  >
                     <div className="font-display-lg text-display-lg text-primary font-extrabold leading-none mb-2">
-                      {s.k}
+                      <StatCounter target={s.num} suffix={s.suffix} />
                     </div>
                     <div className="font-label-md text-label-md text-on-surface-variant uppercase font-semibold">
                       {s.l}
