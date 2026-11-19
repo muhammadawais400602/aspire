@@ -427,6 +427,305 @@ function TiltCard({
   );
 }
 
+function SceneProblem() {
+  return (
+    <div className="absolute inset-0 flex flex-col items-center justify-center p-6 sm:p-10 text-center">
+      <div className="flex items-end gap-6 sm:gap-14 mb-10">
+        <div className="scene-fade-up">
+          <div className="font-mono text-[10px] sm:text-xs text-white/40 tracking-widest mb-2">
+            YEARS SPENT
+          </div>
+          <div className="font-sans text-5xl sm:text-7xl font-extrabold text-white leading-none">
+            4
+          </div>
+          <div className="font-mono text-[10px] sm:text-xs text-white/40 mt-2">
+            on your degree
+          </div>
+        </div>
+        <div className="scene-fade-up scene-delay-1 font-sans text-3xl sm:text-5xl text-white/25 pb-5">
+          ·
+        </div>
+        <div className="scene-fade-up scene-delay-2">
+          <div className="font-mono text-[10px] sm:text-xs text-white/40 tracking-widest mb-2">
+            EARNED SO FAR
+          </div>
+          <div className="font-sans text-5xl sm:text-7xl font-extrabold text-primary leading-none">
+            0
+          </div>
+          <div className="font-mono text-[10px] sm:text-xs text-white/40 mt-2">PKR</div>
+        </div>
+      </div>
+      <p className="scene-fade-up scene-delay-4 text-white font-sans text-lg sm:text-2xl uppercase tracking-tight max-w-md font-bold">
+        Your degree ends.{" "}
+        <span className="text-primary">Your income hasn&apos;t started.</span>
+      </p>
+    </div>
+  );
+}
+
+function SceneCourses() {
+  const courses = ["AI", "PROMPT", "GFX", "FREE", "MKT", "COM", "WEB"];
+  return (
+    <div className="absolute inset-0 flex flex-col items-center justify-center p-6 sm:p-10 text-center">
+      <div className="scene-fade-up text-[10px] sm:text-xs font-mono text-[#C9A74B] tracking-[0.25em] mb-4">
+        THE CURRICULUM
+      </div>
+      <h3 className="scene-fade-up scene-delay-1 text-white font-sans text-2xl sm:text-4xl font-extrabold uppercase mb-10 max-w-md">
+        Seven courses. <span className="text-primary">one</span> path.
+      </h3>
+      <div className="flex gap-2 sm:gap-3 flex-wrap justify-center max-w-2xl">
+        {courses.map((c, i) => (
+          <div
+            key={c}
+            className={`scene-fade-up scene-delay-${Math.min(i + 2, 8)} px-3 py-2 bg-white/5 border border-[#C9A74B]/40 rounded font-mono text-[10px] sm:text-xs text-white`}
+          >
+            <span className="text-[#C9A74B] mr-1">0{i + 1}</span>
+            {c}
+          </div>
+        ))}
+      </div>
+      <p className="scene-fade-up scene-delay-8 text-white/50 font-mono text-[10px] sm:text-xs mt-8">
+        One semester · delivered across 100+ campuses
+      </p>
+    </div>
+  );
+}
+
+function SceneShip() {
+  const files = [
+    { name: "portfolio.site", status: "shipped", when: "wk 02" },
+    { name: "ad-30s.mp4", status: "shipped", when: "wk 04" },
+    { name: "brand-kit.ai", status: "shipping", when: "wk 06" },
+    { name: "pitch-deck.pdf", status: "queued", when: "wk 08" },
+  ];
+  return (
+    <div className="absolute inset-0 p-6 sm:p-10 flex flex-col justify-center">
+      <div className="scene-fade-up text-[10px] sm:text-xs font-mono text-[#C9A74B] tracking-[0.25em] mb-3">
+        LEARN BY SHIPPING
+      </div>
+      <h3 className="scene-fade-up scene-delay-1 text-white font-sans text-2xl sm:text-4xl font-extrabold uppercase mb-8 max-w-lg">
+        Real work. <span className="text-primary">every</span> week.
+      </h3>
+      <div className="space-y-2 max-w-xl bg-black/40 border border-white/10 rounded-lg p-3">
+        <div className="scene-fade-up scene-delay-1 flex items-center justify-between px-3 pb-2 border-b border-white/10 font-mono text-[10px] text-white/40">
+          <span>FILE</span>
+          <span className="flex items-center gap-4">
+            <span>STATUS</span>
+            <span>DEADLINE</span>
+          </span>
+        </div>
+        {files.map((f, i) => (
+          <div
+            key={f.name}
+            className={`scene-fade-up scene-delay-${i + 2} flex items-center justify-between px-3 py-2 bg-white/5 rounded font-mono text-[11px] sm:text-xs`}
+          >
+            <span className="text-white/80">{f.name}</span>
+            <span className="flex items-center gap-4">
+              <span
+                className={
+                  f.status === "shipped"
+                    ? "text-[#A9F2A9]"
+                    : f.status === "shipping"
+                    ? "text-[#C9A74B]"
+                    : "text-white/40"
+                }
+              >
+                {f.status.toUpperCase()}
+              </span>
+              <span className="text-white/40">{f.when}</span>
+            </span>
+          </div>
+        ))}
+      </div>
+      <p className="scene-fade-up scene-delay-6 text-white/50 font-mono text-[10px] sm:text-xs mt-6 max-w-lg">
+        AI gives instant feedback. Teachers finalize the grade.
+      </p>
+    </div>
+  );
+}
+
+function SceneDollars() {
+  return (
+    <div className="absolute inset-0 flex flex-col items-center justify-center p-6 sm:p-10 text-center">
+      <div className="scene-fade-up text-[10px] sm:text-xs font-mono text-[#C9A74B] tracking-[0.25em] mb-3">
+        PAYOUT ARCHITECTURE
+      </div>
+      <h3 className="scene-fade-up scene-delay-1 text-white font-sans text-2xl sm:text-4xl font-extrabold uppercase mb-10">
+        Dollars. <span className="text-primary">directly.</span>
+      </h3>
+      <div className="flex items-center gap-2 sm:gap-3 font-mono text-[10px] sm:text-xs max-w-3xl flex-wrap justify-center">
+        <div className="scene-fade-up scene-delay-2 px-3 py-2 bg-white/5 border border-white/20 rounded text-white">
+          International Client
+        </div>
+        <span className="scene-fade-up scene-delay-3 text-[#C9A74B]">→</span>
+        <div className="scene-fade-up scene-delay-3 px-3 py-2 bg-white/5 border border-[#C9A74B]/40 rounded text-white">
+          Freelance Platform
+        </div>
+        <span className="scene-fade-up scene-delay-4 text-[#C9A74B]">→</span>
+        <div className="scene-fade-up scene-delay-4 px-3 py-2 bg-primary text-white border border-primary rounded font-semibold">
+          Payoneer · Wise
+        </div>
+        <span className="scene-fade-up scene-delay-5 text-[#C9A74B]">→</span>
+        <div className="scene-fade-up scene-delay-5 px-3 py-2 bg-white/5 border border-white/20 rounded text-white">
+          PKR · Local Bank
+        </div>
+      </div>
+      <div className="scene-fade-up scene-delay-6 mt-10 flex items-baseline gap-2">
+        <span className="font-mono text-[10px] sm:text-xs text-white/40">
+          FIRST-COHORT PROJECTION ·
+        </span>
+        <span className="font-sans text-xl sm:text-3xl font-extrabold text-primary">
+          $200 – $1,500
+        </span>
+        <span className="font-mono text-[10px] sm:text-xs text-white/40">/ MONTH</span>
+      </div>
+      <p className="scene-fade-up scene-delay-7 text-white/40 font-mono text-[10px] sm:text-xs mt-3 max-w-md">
+        Set up during Course 06 · CNIC verified, local bank linked
+      </p>
+    </div>
+  );
+}
+
+function SceneCTA() {
+  return (
+    <div className="absolute inset-0 flex flex-col items-center justify-center p-6 sm:p-10 text-center">
+      <div className="scene-fade-up text-[10px] sm:text-xs font-mono text-[#C9A74B] tracking-[0.25em] mb-4">
+        SPRING 2027 COHORT
+      </div>
+      <h3 className="scene-fade-up scene-delay-1 text-white font-sans text-3xl sm:text-5xl font-extrabold uppercase mb-6 leading-none">
+        Be the <span className="text-primary">first</span> to join.
+      </h3>
+      <p className="scene-fade-up scene-delay-2 text-white/60 max-w-md mb-8 text-sm sm:text-base">
+        Invites open per campus. First-come allocation.
+      </p>
+      <div className="scene-fade-up scene-delay-3">
+        <div className="scene-cta-pulse inline-flex items-center gap-2 px-6 py-3 bg-primary text-white font-sans font-bold uppercase tracking-widest rounded-full text-xs sm:text-sm">
+          Reserve your seat
+          <span>→</span>
+        </div>
+      </div>
+      <p className="scene-fade-up scene-delay-4 mt-6 text-white/40 font-mono text-[10px] sm:text-xs">
+        No payment at this stage.
+      </p>
+    </div>
+  );
+}
+
+function ExplainerVideo() {
+  const SCENES = [
+    { id: "problem", label: "The gap", duration: 11000, Component: SceneProblem },
+    { id: "courses", label: "Seven courses", duration: 13000, Component: SceneCourses },
+    { id: "ship", label: "Ship weekly", duration: 12000, Component: SceneShip },
+    { id: "dollars", label: "Dollar rails", duration: 13000, Component: SceneDollars },
+    { id: "cta", label: "Join", duration: 9000, Component: SceneCTA },
+  ];
+
+  const [idx, setIdx] = useState(0);
+  const [playing, setPlaying] = useState(true);
+  const [elapsed, setElapsed] = useState(0);
+
+  useEffect(() => {
+    if (!playing) return;
+    const duration = SCENES[idx].duration;
+    const start = performance.now() - elapsed;
+    let raf = 0;
+    const tick = (t: number) => {
+      const e = t - start;
+      if (e >= duration) {
+        setIdx((i) => (i + 1) % SCENES.length);
+        setElapsed(0);
+        return;
+      }
+      setElapsed(e);
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [idx, playing]);
+
+  const CurrentScene = SCENES[idx].Component;
+  const totalDur = SCENES.reduce((s, x) => s + x.duration, 0);
+  const totalElapsed =
+    SCENES.slice(0, idx).reduce((s, x) => s + x.duration, 0) + elapsed;
+
+  const fmt = (ms: number) => {
+    const s = Math.floor(ms / 1000);
+    return `${Math.floor(s / 60)
+      .toString()
+      .padStart(2, "0")}:${(s % 60).toString().padStart(2, "0")}`;
+  };
+
+  return (
+    <div className="absolute inset-0 bg-[#0B0D10] overflow-hidden flex flex-col">
+      {/* Header */}
+      <div className="px-4 sm:px-5 py-2.5 flex items-center justify-between text-white/60 font-mono text-[10px] sm:text-xs border-b border-white/10 shrink-0">
+        <div className="flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+          <span>AIT · PROGRAM OVERVIEW</span>
+        </div>
+        <span className="text-white/40">
+          {fmt(totalElapsed)} / {fmt(totalDur)}
+        </span>
+      </div>
+
+      {/* Scene stage */}
+      <div className="flex-1 relative">
+        <CurrentScene key={idx} />
+      </div>
+
+      {/* Controls */}
+      <div className="px-4 sm:px-5 py-3 border-t border-white/10 shrink-0">
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setPlaying((p) => !p)}
+            className="w-7 h-7 rounded-full bg-white/10 hover:bg-primary flex items-center justify-center text-white transition-colors shrink-0"
+            aria-label={playing ? "Pause" : "Play"}
+          >
+            {playing ? (
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor">
+                <rect x="1.5" y="1" width="2.5" height="8" />
+                <rect x="6" y="1" width="2.5" height="8" />
+              </svg>
+            ) : (
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor">
+                <path d="M2 1 L9 5 L2 9 Z" />
+              </svg>
+            )}
+          </button>
+          <div className="flex-1 flex gap-1">
+            {SCENES.map((s, i) => (
+              <button
+                key={s.id}
+                onClick={() => {
+                  setIdx(i);
+                  setElapsed(0);
+                }}
+                className="flex-1 h-0.5 bg-white/15 rounded-full relative overflow-hidden"
+                aria-label={`Scene ${i + 1}: ${s.label}`}
+              >
+                <div
+                  className="absolute inset-0 bg-primary origin-left"
+                  style={{
+                    transform: `scaleX(${
+                      i < idx ? 1 : i === idx ? elapsed / SCENES[idx].duration : 0
+                    })`,
+                    transition: i === idx ? "none" : "transform 0.3s ease",
+                    transformOrigin: "left center",
+                  }}
+                />
+              </button>
+            ))}
+          </div>
+          <span className="text-white/40 font-mono text-[10px] shrink-0">
+            {idx + 1}/{SCENES.length}
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function HorizontalCourseScroll({ courses }: { courses: typeof COURSES }) {
   const parentRef = useRef<HTMLDivElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
@@ -694,30 +993,12 @@ export default function HomePage() {
               {/* Hero visual card */}
               <div className="relative w-full max-w-5xl rounded-2xl overflow-hidden shadow-2xl bg-surface-container-lowest p-2 sm:p-3 mb-16">
                 <div className="relative aspect-[16/9] w-full rounded-xl overflow-hidden">
-                  <HeroAnimation />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
-                  <div className="absolute top-4 left-4 flex flex-wrap gap-2">
-                    <span className="px-3 py-1 bg-surface-container-lowest/90 backdrop-blur-md rounded-full font-label-sm text-label-sm text-primary font-bold shadow-sm flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-primary animate-ping" /> Live Session Telemetry
-                    </span>
-                    <span className="px-3 py-1 bg-surface-container-lowest/80 backdrop-blur-md rounded-full font-label-sm text-label-sm text-on-surface font-semibold shadow-sm">
-                      AIT Innovation Labs · Lahore Campus
-                    </span>
-                  </div>
-                  <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-surface">
-                    <div className="text-left">
-                      <p className="font-headline-sm text-headline-sm font-bold text-surface">
-                        Production-grade AI terminal & curricular nodes
-                      </p>
-                      <p className="font-body-sm text-body-sm text-surface/80">
-                        Students compiling client-ready AI systems on high-performance dual-screen stacks.
-                      </p>
-                    </div>
-                    <div className="hidden sm:flex items-center gap-2 bg-surface/20 backdrop-blur-md px-3 py-1.5 rounded-lg text-surface font-mono text-label-sm">
-                      <span>NODE: PK-LHE-01</span>
-                    </div>
-                  </div>
+                  <ExplainerVideo />
                 </div>
+                <p className="mt-4 font-body-sm text-body-sm text-on-surface-variant max-w-2xl mx-auto">
+                  A sixty-second overview of the AIT program — the gap it fills, what you&apos;ll
+                  learn, and how students earn in dollars.
+                </p>
               </div>
 
               {/* Infographic 1: Earning Pipeline */}
